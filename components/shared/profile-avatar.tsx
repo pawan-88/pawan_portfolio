@@ -89,11 +89,11 @@ export function ProfileAvatar({
                 className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-t from-zinc-950/50 via-transparent to-violet-950/20"
                 aria-hidden
               />
-              <div
+              <motion.div
                 className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/10"
                 aria-hidden
               />
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>

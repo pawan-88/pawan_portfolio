@@ -57,7 +57,7 @@ export function HeroSection() {
             className="absolute inset-0 bg-gradient-to-br from-violet-600/40 via-transparent to-cyan-500/30 mix-blend-color"
             aria-hidden
           />
-        </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -209,7 +209,7 @@ export function HeroSection() {
             <ArrowDown className="h-4 w-4 animate-bounce" />
           </Link>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -27,7 +27,7 @@ export function SkillsSection() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, i) => (
+                    {category.skills.map((skill) => (
                       <motion.div
                         key={skill}
                         whileHover={{ scale: 1.05 }}
