@@ -40,6 +40,14 @@ export const metadata: Metadata = {
     title: personalInfo.seo.title,
     description: personalInfo.seo.description,
     siteName: `${personalInfo.name} Portfolio`,
+    images: [
+      {
+        url: personalInfo.profileImage,
+        width: 800,
+        height: 800,
+        alt: `${personalInfo.name} profile photo`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

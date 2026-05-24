@@ -8,6 +8,7 @@ export const personalInfo = {
   email: "pawansanap8619@gmail.com",
   location: "Pune, India",
   availability: "Open to full-time & contract roles",
+  profileImage: "/images/profile.jpg",
   resumeUrl: "/resume.pdf",
   siteUrl: "https://pawanportfolio.github.io",
   seo: {
