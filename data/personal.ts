@@ -10,7 +10,7 @@ export const personalInfo = {
   availability: "Open to full-time & contract roles",
   profileImage: "/images/profile.jpg",
   resumeUrl: "/resume.pdf",
-  siteUrl: "https://pawanportfolio.github.io",
+  siteUrl: "https://pawan-portfolio.vercel.app",
   seo: {
     title: "Pawan Sanap | Full Stack Developer Portfolio",
     description:
