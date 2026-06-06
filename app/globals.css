@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #09090b;
-  --color-foreground: #fafafa;
+  --color-background: #050816;
+  --color-foreground: #f8fafc;
+  --color-accent: #00f5d4;
+  --color-secondary: #7b61ff;
+  --color-muted: #94a3b8;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -16,42 +19,70 @@ html {
 }
 
 body {
-  @apply bg-zinc-950 text-zinc-100 antialiased;
+  background-color: #050816;
+  color: #f8fafc;
   font-family: var(--font-sans);
+  @apply antialiased;
 }
 
 ::selection {
-  @apply bg-violet-500/30 text-white;
+  background: rgba(0, 245, 212, 0.25);
+  color: #fff;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #050816;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #7c3aed, #06b6d4);
+  background: linear-gradient(180deg, #7b61ff, #00f5d4);
   border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #8b5cf6, #22d3ee);
 }
 
 @layer utilities {
   .section-padding {
-    @apply py-20 sm:py-24 lg:py-28;
+    @apply py-24 sm:py-28 lg:py-32;
+  }
+
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl;
   }
 
   .glass-card {
-    @apply border-white/10 bg-white/[0.03] backdrop-blur-xl;
+    @apply rounded-2xl border border-white/[0.08] bg-white/[0.03] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 245, 212, 0.4), rgba(123, 97, 255, 0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent via-white to-secondary bg-clip-text text-transparent;
   }
 
   .container {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .display-text {
+    @apply text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl;
   }
 }

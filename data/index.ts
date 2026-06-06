@@ -1,7 +1,11 @@
 export { personalInfo } from "./personal";
-export { socialLinks } from "./social";
-export { skillCategories, focusAreas } from "./skills";
-export { experience } from "./experience";
-export { projects } from "./projects";
-export { certifications } from "./certifications";
 export { navLinks } from "./navigation";
+export { philosophyCards } from "./philosophy";
+export { caseStudies } from "./case-studies";
+export { services } from "./services";
+export { processSteps } from "./process";
+export { clientMetrics } from "./metrics";
+export { testimonials } from "./testimonials";
+export { aiQuestions, aiGreeting } from "./ai-assistant";
+export { faqItems } from "./faq";
+export { specializations, heroStats, techStack } from "./hero";

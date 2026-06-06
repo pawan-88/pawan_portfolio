@@ -3,22 +3,24 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { PageLoader } from "@/components/layout/page-loader";
-import { GradientBackground } from "@/components/shared/gradient-background";
+import { ClientEffects } from "@/components/layout/client-effects";
 import { personalInfo } from "@/data/personal";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#050816",
   width: "device-width",
   initialScale: 1,
 };
@@ -39,25 +41,14 @@ export const metadata: Metadata = {
     url: personalInfo.siteUrl,
     title: personalInfo.seo.title,
     description: personalInfo.seo.description,
-    siteName: `${personalInfo.name} Portfolio`,
-    images: [
-      {
-        url: personalInfo.profileImage,
-        width: 800,
-        height: 800,
-        alt: `${personalInfo.name} profile photo`,
-      },
-    ],
+    siteName: `${personalInfo.name} — Software Consultant`,
   },
   twitter: {
     card: "summary_large_image",
     title: personalInfo.seo.title,
     description: personalInfo.seo.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -66,20 +57,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background`}>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-background"
         >
           Skip to main content
         </a>
         <PageLoader />
-        <GradientBackground />
+        <ClientEffects />
         <Navbar />
         <main id="main-content">{children}</main>
         <Footer />

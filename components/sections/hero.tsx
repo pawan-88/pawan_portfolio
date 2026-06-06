@@ -1,213 +1,141 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { personalInfo } from "@/data/personal";
-import { socialLinks } from "@/data/social";
+import { heroStats, specializations, techStack } from "@/data/hero";
+import { HeroProfile } from "@/components/sections/hero-profile";
+import { MagneticButton } from "@/components/shared/magnetic-button";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ProfileAvatar } from "@/components/shared/profile-avatar";
 
 export function HeroSection() {
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center pt-28 pb-20"
-      aria-label="Hero"
-    >
-      <motion.div
-        className="pointer-events-none absolute right-0 top-1/3 hidden h-[420px] w-[420px] -translate-y-1/2 opacity-20 blur-3xl lg:block"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.08, 1], opacity: [0.15, 0.25, 0.15] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden
-      />
-
-      <motion.div
-        className="pointer-events-none absolute left-0 top-1/2 hidden h-[320px] w-[320px] -translate-y-1/2 opacity-15 blur-3xl lg:block"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden
-      />
-
-      <motion.div
-        className="pointer-events-none absolute right-8 top-28 hidden overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-3 shadow-2xl backdrop-blur-xl lg:block"
-        initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-      >
-        <div className="relative h-28 w-28 overflow-hidden rounded-xl">
-          <Image
-            src={personalInfo.profileImage}
-            alt=""
-            fill
-            className="object-cover object-[center_15%] brightness-90 saturate-90"
-            aria-hidden
-          />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-violet-600/40 via-transparent to-cyan-500/30 mix-blend-color"
-            aria-hidden
-          />
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="pointer-events-none absolute bottom-32 left-8 hidden overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-2 shadow-2xl backdrop-blur-xl lg:block"
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-      >
-        <motion.div
-          className="relative h-20 w-20 overflow-hidden rounded-xl"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Image
-            src={personalInfo.profileImage}
-            alt=""
-            fill
-            className="object-cover object-[center_15%] scale-110 brightness-75 contrast-125 grayscale"
-            aria-hidden
-          />
-          <div className="absolute inset-0 bg-violet-950/40 mix-blend-multiply" aria-hidden />
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="pointer-events-none absolute bottom-24 right-12 hidden overflow-hidden rounded-full border border-white/10 bg-zinc-950/80 p-1 shadow-xl backdrop-blur-md lg:block"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <motion.div
-          className="relative h-16 w-16 overflow-hidden rounded-full"
-          animate={{ rotate: [0, 3, -3, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Image
-            src={personalInfo.profileImage}
-            alt=""
-            fill
-            className="object-cover object-[center_15%]"
-            aria-hidden
-          />
-        </motion.div>
-      </motion.div>
-
+    <section id="home" className="relative pt-28 pb-12 sm:pb-16" aria-label="Hero">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16"
-        >
+        {/* Main two-column hero */}
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+          {/* Left — copy */}
           <motion.div
-            className="order-2 text-center lg:order-1 lg:text-left"
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
+            transition={{ duration: 0.7 }}
+            className="order-2 lg:order-1"
           >
-            <Badge className="mb-6 border-cyan-500/30 bg-cyan-500/10 text-cyan-200">
-              <Sparkles className="mr-1 h-3 w-3" />
-              Available for new opportunities
-            </Badge>
-
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-violet-300/90">
-              Premium Developer Portfolio
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-accent">
+              Hi, Welcome
             </p>
 
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-              <span className="block">Engineering</span>
-              <span className="bg-gradient-to-r from-violet-300 via-white to-cyan-300 bg-clip-text text-transparent">
-                {personalInfo.name}
-              </span>
-            </h1>
+            <h1 className="display-text font-bold text-white">{personalInfo.headline}</h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-300 sm:text-xl lg:mx-0">
+            <p className="mt-4 text-lg font-medium leading-snug text-accent/90 sm:text-xl">
               {personalInfo.title}
             </p>
 
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 lg:mx-0">
-              {personalInfo.intro}
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+              {personalInfo.subheading}
             </p>
 
-            <motion.div
-              className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-            >
-              <Button asChild size="lg">
-                <Link href="#projects">View Projects</Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer">
-                  <Download className="h-4 w-4" />
-                  Download Resume
-                </Link>
-              </Button>
-            </motion.div>
+            <p className="mt-6 text-sm text-muted">Specializing in</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {specializations.map((item, i) => (
+                <motion.span
+                  key={item.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/90 sm:text-sm"
+                >
+                  <item.icon className="h-3.5 w-3.5 text-accent" />
+                  {item.label}
+                </motion.span>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3 sm:mt-10">
+              <MagneticButton>
+                <Button asChild size="lg">
+                  <Link href={personalInfo.bookingUrl} target="_blank" rel="noopener noreferrer">
+                    Book Consultation
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </MagneticButton>
+              <MagneticButton>
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="#work">View Projects</Link>
+                </Button>
+              </MagneticButton>
+            </div>
 
             <motion.div
-              className="mt-10 flex items-center justify-center gap-3 lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.45 }}
+              transition={{ delay: 0.6 }}
+              className="mt-8 flex gap-3 border-l-2 border-accent/50 pl-4 sm:mt-10"
             >
-              {socialLinks.map((social, index) => (
-                <motion.div
-                  key={social.name}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + index * 0.08 }}
-                >
-                  <Link
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="group flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-zinc-300 transition-all hover:scale-105 hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </Link>
-                </motion.div>
-              ))}
+              <p className="max-w-md text-sm leading-relaxed text-muted">
+                Percieve. Design. Develop — I partner with founders and businesses to
+                turn ideas into products that deliver measurable outcomes.
+              </p>
             </motion.div>
           </motion.div>
 
+          {/* Right — profile photo */}
           <motion.div
-            className="order-1 flex justify-center lg:order-2 lg:justify-end"
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="order-1 lg:order-2"
           >
-            <ProfileAvatar size="hero" />
+            <HeroProfile />
           </motion.div>
+        </div>
+
+        {/* Stats bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mt-12 grid grid-cols-2 gap-6 border-y border-white/[0.06] py-8 sm:grid-cols-4 sm:gap-4 lg:mt-16"
+        >
+          {heroStats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 + i * 0.08 }}
+              className="text-center sm:text-left"
+            >
+              <p className="font-mono text-2xl font-bold text-white sm:text-3xl">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-xs text-muted sm:text-sm">{stat.label}</p>
+            </motion.div>
+          ))}
         </motion.div>
 
+        {/* Tech stack bar */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="mt-20 flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.6 }}
+          className="mt-6 flex flex-col gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-8 sm:p-6"
         >
-          <Link
-            href="#about"
-            className="flex flex-col items-center gap-2 text-xs uppercase tracking-widest text-zinc-500 transition-colors hover:text-zinc-300"
-            aria-label="Scroll to about section"
-          >
-            Scroll to explore
-            <ArrowDown className="h-4 w-4 animate-bounce" />
-          </Link>
+          <div className="shrink-0">
+            <p className="text-sm font-semibold text-white">Tech Stack</p>
+            <div className="mt-1 h-0.5 w-12 bg-accent" />
+          </div>
+          <div className="flex flex-wrap gap-3 sm:gap-4">
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-accent/20 hover:text-white"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
