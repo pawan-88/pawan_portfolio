@@ -17,7 +17,12 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/pawansanap8619/",
   github: "https://github.com/pawan-88",
   githubUsername: "pawan-88",
-  bookingUrl: "https://cal.com/pawan-sanap/30min",
+  // All "Book Consultation" buttons redirect to WhatsApp with a prefilled message
+  bookingUrl:
+    "https://wa.me/919168238418?text=" +
+    encodeURIComponent(
+      "Hi Pawan! I'd like to book a free consultation to discuss my project."
+    ),
   location: "Pune, India",
   availability: "Accepting new client projects",
   profileImage: "/images/profile.png",

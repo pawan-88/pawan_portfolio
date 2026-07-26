@@ -7,6 +7,11 @@ import { personalInfo } from "@/data/personal";
 import { heroStats, specializations, techStack } from "@/data/hero";
 import { HeroProfile } from "@/components/sections/hero-profile";
 import { MagneticButton } from "@/components/shared/magnetic-button";
+import { SplitText } from "@/components/shared/split-text";
+import { ScrambleText } from "@/components/shared/scramble-text";
+import { Marquee } from "@/components/shared/marquee";
+import { ScrollHint } from "@/components/shared/scroll-hint";
+import { StatCounter } from "@/components/shared/stat-counter";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
@@ -23,10 +28,12 @@ export function HeroSection() {
             className="order-2 lg:order-1"
           >
             <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-accent">
-              Hi, Welcome
+              <ScrambleText text="Hi, Welcome" delay={400} />
             </p>
 
-            <h1 className="display-text font-bold text-white">{personalInfo.headline}</h1>
+            <h1 className="display-text font-bold text-white">
+              <SplitText text={personalInfo.headline} by="words" trigger="mount" delay={0.3} />
+            </h1>
 
             <p className="mt-4 text-lg font-medium leading-snug text-accent/90 sm:text-xl">
               {personalInfo.title}
@@ -63,7 +70,13 @@ export function HeroSection() {
               </MagneticButton>
               <MagneticButton>
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="#work">View Projects</Link>
+                  <Link
+                    href={personalInfo.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Projects
+                  </Link>
                 </Button>
               </MagneticButton>
             </div>
@@ -79,6 +92,8 @@ export function HeroSection() {
                 turn ideas into products that deliver measurable outcomes.
               </p>
             </motion.div>
+
+            <ScrollHint />
           </motion.div>
 
           {/* Right — profile photo */}
@@ -108,7 +123,7 @@ export function HeroSection() {
               className="text-center sm:text-left"
             >
               <p className="font-mono text-2xl font-bold text-white sm:text-3xl">
-                {stat.value}
+                <StatCounter value={stat.value} />
               </p>
               <p className="mt-1 text-xs text-muted sm:text-sm">{stat.label}</p>
             </motion.div>
@@ -126,16 +141,7 @@ export function HeroSection() {
             <p className="text-sm font-semibold text-white">Tech Stack</p>
             <div className="mt-1 h-0.5 w-12 bg-accent" />
           </div>
-          <div className="flex flex-wrap gap-3 sm:gap-4">
-            {techStack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-accent/20 hover:text-white"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          <Marquee items={techStack} className="min-w-0 flex-1 py-1.5" />
         </motion.div>
       </div>
     </section>

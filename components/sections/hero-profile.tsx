@@ -1,9 +1,32 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Send, Sparkles } from "lucide-react";
 import { personalInfo } from "@/data/personal";
+
+// Three.js distortion loads client-side only; plain image until ready
+const DistortionImage = dynamic(
+  () =>
+    import("@/components/shared/distortion-image").then(
+      (m) => m.DistortionImage
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <Image
+        src={personalInfo.profileImage}
+        alt={`${personalInfo.name} — ${personalInfo.roleTitle}`}
+        fill
+        priority
+        unoptimized
+        className="object-cover object-[center_12%] brightness-[1.02] contrast-[1.04]"
+        sizes="(max-width: 768px) 340px, 420px"
+      />
+    ),
+  }
+);
 
 function FloatingCards() {
   return (
@@ -69,25 +92,20 @@ export function HeroProfile() {
         <div className="rounded-[1.75rem] bg-gradient-to-br from-accent/50 via-secondary/30 to-accent/20 p-[2px] shadow-[0_24px_80px_rgba(0,0,0,0.55)]">
           <div className="overflow-hidden rounded-[1.65rem] bg-[#0a0f1e]">
             <div className="relative aspect-[4/5] w-full">
-              <Image
-                src={personalInfo.profileImage}
-                alt={`${personalInfo.name} — ${personalInfo.roleTitle}`}
-                fill
-                priority
-                unoptimized
-                className="object-cover object-[center_12%] brightness-[1.02] contrast-[1.04]"
-                sizes="(max-width: 768px) 340px, 420px"
-              />
+              <div className="absolute inset-0 brightness-[1.02] contrast-[1.04]">
+                <DistortionImage
+                  src={personalInfo.profileImage}
+                  alt={`${personalInfo.name} — ${personalInfo.roleTitle}`}
+                  positionX={0.5}
+                  positionY={0.12}
+                />
+              </div>
 
               {/* Cards on chest — lower-right, clear of face */}
               <div className="absolute bottom-[6%] right-[4%] z-20 w-[52%] max-w-[200px] sm:bottom-[8%] sm:right-[5%] sm:max-w-[210px]">
                 <FloatingCards />
               </div>
 
-              <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent"
-                aria-hidden
-              />
               <div
                 className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10"
                 aria-hidden

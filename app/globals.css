@@ -10,8 +10,14 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-* {
+html {
   scroll-behavior: smooth;
+}
+
+/* Lenis takes over scrolling — disable native smooth to avoid conflict */
+html.lenis,
+html.lenis * {
+  scroll-behavior: auto;
 }
 
 html {
@@ -84,5 +90,78 @@ body {
 
   .display-text {
     @apply text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl;
+  }
+}
+
+/* ---------- Moonlight / animation keyframes ---------- */
+
+@keyframes moon-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.8; }
+}
+
+@keyframes ray-rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes mist-drift-1 {
+  0%, 100% { transform: translateX(-4%) translateY(0); opacity: 0.8; }
+  50% { transform: translateX(4%) translateY(-12px); opacity: 1; }
+}
+
+@keyframes mist-drift-2 {
+  0%, 100% { transform: translateX(3%) translateY(-8px); opacity: 0.7; }
+  50% { transform: translateX(-3%) translateY(4px); opacity: 1; }
+}
+
+@keyframes mist-drift-3 {
+  0%, 100% { transform: translateX(-2%); opacity: 0.6; }
+  50% { transform: translateX(5%); opacity: 0.9; }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  30% { transform: translate(3%, -2%); }
+  50% { transform: translate(-3%, 2%); }
+  70% { transform: translate(2%, 3%); }
+  90% { transform: translate(-1%, 1%); }
+}
+
+.animate-moon-pulse { animation: moon-pulse 9s ease-in-out infinite; }
+.animate-ray-slow { animation: ray-rotate-slow 60s linear infinite; }
+.animate-ray-slower { animation: ray-rotate-slow 90s linear infinite reverse; }
+.animate-mist-1 { animation: mist-drift-1 18s ease-in-out infinite; }
+.animate-mist-2 { animation: mist-drift-2 24s ease-in-out infinite; }
+.animate-mist-3 { animation: mist-drift-3 30s ease-in-out infinite; }
+.animate-marquee { animation: marquee-scroll 30s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+.animate-grain { animation: grain-shift 0.9s steps(6) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-moon-pulse,
+  .animate-ray-slow,
+  .animate-ray-slower,
+  .animate-mist-1,
+  .animate-mist-2,
+  .animate-mist-3,
+  .animate-marquee,
+  .animate-grain {
+    animation: none;
+  }
+}
+
+/* Hide native cursor when custom cursor is active (desktop only) */
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active a,
+  .custom-cursor-active button {
+    cursor: none;
   }
 }

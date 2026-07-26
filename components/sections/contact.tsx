@@ -35,12 +35,17 @@ export function ContactSection() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const subject = encodeURIComponent("Project Inquiry — Portfolio");
-    const body = encodeURIComponent(
-      `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nProject Type: ${data.get("projectType")}\nBudget: ${data.get("budget")}\n\nMessage:\n${data.get("message")}`
+    const text = encodeURIComponent(
+      `Hi Pawan! 👋 New project inquiry from your portfolio:\n\n` +
+        `*Name:* ${data.get("name")}\n` +
+        `*Email:* ${data.get("email")}\n` +
+        `*Project Type:* ${data.get("projectType")}\n` +
+        `*Budget:* ${data.get("budget")}\n\n` +
+        `*Message:*\n${data.get("message")}`
     );
-    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
+    window.open(`${personalInfo.whatsapp}?text=${text}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 4000);
   };
 
   return (
@@ -179,7 +184,7 @@ export function ContactSection() {
 
               <MagneticButton>
                 <Button type="submit" size="lg" className="w-full sm:w-auto">
-                  {submitted ? "Opening mail..." : "Send Message"}
+                  {submitted ? "Opening WhatsApp..." : "Send Message"}
                   <Send className="h-4 w-4" />
                 </Button>
               </MagneticButton>

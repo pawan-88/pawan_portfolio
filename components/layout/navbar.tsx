@@ -7,6 +7,7 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { navLinks } from "@/data/navigation";
 import { personalInfo } from "@/data/personal";
 import { Button } from "@/components/ui/button";
+import { RollingText } from "@/components/shared/rolling-text";
 import { cn } from "@/lib/utils";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 
@@ -36,7 +37,7 @@ export function Navbar() {
                     : "text-muted hover:text-white"
                 )}
               >
-                {link.label}
+                <RollingText text={link.label} />
                 {activeId === link.href ? (
                   <motion.span
                     layoutId="nav-underline"

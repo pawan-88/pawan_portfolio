@@ -4,51 +4,91 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { personalInfo } from "@/data/personal";
 
+/**
+ * Lusion-style entrance: percentage counter climbs to 100, name reveals
+ * through a mask, then the loader splits open like a curtain.
+ */
 export function PageLoader() {
-  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
+    let value = 0;
+    const interval = setInterval(() => {
+      // Ease-out: fast at first, slows near the end
+      const remaining = 100 - value;
+      value += Math.max(1, Math.round(remaining * 0.12));
+      if (value >= 100) {
+        value = 100;
+        clearInterval(interval);
+        setTimeout(() => setDone(true), 350);
+      }
+      setProgress(value);
+    }, 55);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <AnimatePresence>
-      {loading ? (
+      {!done ? (
         <motion.div
           key="loader"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
+          className="fixed inset-0 z-[100]"
           aria-live="polite"
           aria-label="Loading"
+          exit={{ pointerEvents: "none" as const }}
         >
-          <div className="text-center">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="font-mono text-xs uppercase tracking-[0.3em] text-accent"
-            >
-              Hi, Welcome
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-4 text-2xl font-semibold text-white"
-            >
-              {personalInfo.name}
-            </motion.h2>
-            <motion.div className="mx-auto mt-6 h-px w-32 overflow-hidden bg-white/10">
-              <motion.div
-                className="h-full bg-accent"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.9, ease: "easeInOut" }}
-              />
-            </motion.div>
-          </div>
+          {/* Curtain halves */}
+          <motion.div
+            className="absolute inset-x-0 top-0 h-1/2 bg-background"
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          />
+          <motion.div
+            className="absolute inset-x-0 bottom-0 h-1/2 bg-background"
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          />
+
+          {/* Center content */}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="text-center">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="font-mono text-xs uppercase tracking-[0.3em] text-accent"
+              >
+                Hi, Welcome
+              </motion.p>
+
+              <div className="mt-4 overflow-hidden">
+                <motion.h2
+                  initial={{ y: "100%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                  className="text-2xl font-semibold text-white sm:text-3xl"
+                >
+                  {personalInfo.name}
+                </motion.h2>
+              </div>
+
+              <div className="mx-auto mt-6 h-px w-40 overflow-hidden bg-white/10">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-secondary to-accent"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Big percentage counter, bottom-right (Lusion signature) */}
+            <p className="absolute bottom-8 right-8 font-mono text-6xl font-bold tabular-nums text-white/15 sm:text-8xl">
+              {progress}
+            </p>
+          </motion.div>
         </motion.div>
       ) : null}
     </AnimatePresence>

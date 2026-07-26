@@ -4,6 +4,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { PageLoader } from "@/components/layout/page-loader";
 import { ClientEffects } from "@/components/layout/client-effects";
+import { ScrollProgress } from "@/components/shared/scroll-progress";
+import { VelocitySkew } from "@/components/shared/velocity-skew";
 import { personalInfo } from "@/data/personal";
 import "./globals.css";
 
@@ -69,8 +71,11 @@ export default function RootLayout({
         </a>
         <PageLoader />
         <ClientEffects />
+        <ScrollProgress />
         <Navbar />
-        <main id="main-content">{children}</main>
+        <main id="main-content">
+          <VelocitySkew>{children}</VelocitySkew>
+        </main>
         <Footer />
       </body>
     </html>

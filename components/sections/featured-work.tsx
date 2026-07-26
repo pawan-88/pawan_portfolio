@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/data/case-studies";
 import { SectionHeader } from "@/components/shared/section-header";
+import { TiltCard } from "@/components/shared/tilt-card";
 import { CtaBanner } from "@/components/shared/cta-banner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -28,7 +29,9 @@ export function FeaturedWorkSection() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.65, delay: index * 0.08 }}
               className="group"
+              data-cursor="view"
             >
+              <TiltCard max={4}>
               <div
                 className={cn(
                   "gradient-border glass-card overflow-hidden transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,245,212,0.08)]",
@@ -102,6 +105,7 @@ export function FeaturedWorkSection() {
                   </div>
                 </div>
               </div>
+              </TiltCard>
             </motion.article>
           ))}
         </div>
