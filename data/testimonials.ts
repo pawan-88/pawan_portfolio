@@ -26,9 +26,9 @@ export const testimonials: Testimonial[] = [
   {
     id: "t3",
     quote:
-      "Clear communication, on-time delivery, and a product that our warehouse team adopted immediately. The inventory accuracy improvements paid for the project within months.",
-    author: "Business Owner",
+      "Clear communication, on-time delivery, and a clinic website our patients actually use. Booking inquiries started coming in as soon as the site went live.",
+    author: "Clinic Owner",
     role: "Director",
-    company: "Logistics & Retail",
+    company: "Dental Practice",
   },
 ];

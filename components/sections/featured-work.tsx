@@ -47,22 +47,26 @@ export function FeaturedWorkSection() {
                       {study.title}
                     </h3>
                     <div className="mt-6 space-y-4">
-                      <div>
-                        <p className="text-xs font-medium uppercase tracking-wider text-secondary">
-                          Problem
-                        </p>
-                        <p className="mt-1 text-sm leading-relaxed text-muted">
-                          {study.problem}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-medium uppercase tracking-wider text-secondary">
-                          Solution
-                        </p>
-                        <p className="mt-1 text-sm leading-relaxed text-muted">
-                          {study.solution}
-                        </p>
-                      </div>
+                      {study.problem ? (
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-wider text-secondary">
+                            Problem
+                          </p>
+                          <p className="mt-1 text-sm leading-relaxed text-muted">
+                            {study.problem}
+                          </p>
+                        </div>
+                      ) : null}
+                      {study.solution ? (
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-wider text-secondary">
+                            Solution
+                          </p>
+                          <p className="mt-1 text-sm leading-relaxed text-muted">
+                            {study.solution}
+                          </p>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
@@ -83,27 +87,49 @@ export function FeaturedWorkSection() {
                       </div>
                     </div>
 
-                    <div className="rounded-xl border border-accent/20 bg-accent/5 p-5">
-                      <p className="text-xs font-medium uppercase tracking-wider text-accent">
-                        Business Impact
-                      </p>
-                      <p className="mt-2 text-sm font-medium leading-relaxed text-white">
-                        {study.impact}
-                      </p>
-                    </div>
+                    {study.impact ? (
+                      <div className="rounded-xl border border-accent/20 bg-accent/5 p-5">
+                        <p className="text-xs font-medium uppercase tracking-wider text-accent">
+                          Business Impact
+                        </p>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-white">
+                          {study.impact}
+                        </p>
+                      </div>
+                    ) : null}
 
-                    <Button
-                      asChild
-                      variant="secondary"
-                      className="w-fit transition-transform group-hover:scale-[1.02]"
-                    >
-                      <Link href={study.demoUrl} target="_blank" rel="noopener noreferrer">
-                        View Demo
-                        <ArrowUpRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
+                    {study.demoUrl ? (
+                      <Button
+                        asChild
+                        variant="secondary"
+                        className="w-fit transition-transform group-hover:scale-[1.02]"
+                      >
+                        <Link href={study.demoUrl} target="_blank" rel="noopener noreferrer">
+                          View Live Site
+                          <ArrowUpRight className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    ) : null}
                   </div>
                 </div>
+                {study.highlights?.length ? (
+                  <div className="border-t border-white/10 px-8 pb-8 lg:px-10">
+                    <p className="pt-6 text-xs font-medium uppercase tracking-wider text-secondary">
+                      Scope
+                    </p>
+                    <ul className="mt-3 space-y-2">
+                      {study.highlights.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-2 text-sm leading-relaxed text-muted"
+                        >
+                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
               </TiltCard>
             </motion.article>
